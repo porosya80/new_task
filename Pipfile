@@ -8,6 +8,10 @@ verify_ssl = true
 [packages]
 django = "*"
 djangorestframework = "*"
+django-heroku = "*"
+whitenoise = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
