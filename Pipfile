@@ -18,6 +18,8 @@ httpie = "*"
 djangorestframework-simplejwt = "*"
 django-cors-headers = "*"
 django-rest-auth = "*"
+django-extensions = "*"
+ipython = "*"
 
 [requires]
 python_version = "3.7"
