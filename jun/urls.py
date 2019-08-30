@@ -5,6 +5,6 @@ from users import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hello/", views.HelloView.as_view(), name="hello"),
-    path('api/users/', include('users.urls'), name="users_api"),
-    path('api/posts/', include('posts.urls'), name="posts_apu"),
+    path('api/users/', include('users.urls'), ),
+    path('api/posts/', include('posts.urls'), ),
 ]
