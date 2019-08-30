@@ -21,6 +21,8 @@ django-extensions = "*"
 ipython = "*"
 factory-boy = "*"
 faker = "*"
+drf-yasg = "*"
+packaging = "*"
 
 [requires]
 python_version = "3.7"
