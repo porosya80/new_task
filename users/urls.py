@@ -16,7 +16,9 @@ urlpatterns = [
          name='token_obtain_pair'),
     path('token/refresh/', jwt_views.TokenRefreshView.as_view(),
          name='token_refresh'),
-    path('', include(router.urls), name = 'users_api'),
+    path('token/verify/', jwt_views.TokenVerifyView.as_view(),
+         name='token_verify'),
+    path('', include(router.urls), name='users_api'),
 ]
 
 urlpatterns += router.urls
