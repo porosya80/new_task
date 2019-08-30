@@ -16,7 +16,7 @@ class Like(models.Model):
 
 
 class Post(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,
                              related_name='author',
                              on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
