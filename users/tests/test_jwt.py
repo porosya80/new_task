@@ -38,21 +38,20 @@ class TokenTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
 
         url = reverse('hello')
-        client = APIClient()
-        client.credentials(HTTP_AUTHORIZATION='Bearer ' + 'abc')
-        resp = client.get(url, data={'format': 'json'})
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + 'abc')
+        resp = self.client.get(url, data={'format': 'json'})
         self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
-        client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
-        resp = client.get(url, data={'format': 'json'})
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+        resp = self.client.get(url, data={'format': 'json'})
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
         # cheking for refresh token
         url = reverse('token_refresh')
-        client.credentials(HTTP_AUTHORIZATION='Bearer ' + ref_token)
-        resp = client.post(url, {'refresh': ref_token},
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + ref_token)
+        resp = self.client.post(url, {'refresh': ref_token},
                            format='json')
         token = resp.data['access']
-        client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
         resp = self.client.post(
             verification_url, {'token': token}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
