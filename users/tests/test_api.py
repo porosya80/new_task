@@ -4,8 +4,10 @@ from ..models import User
 from rest_framework import status
 
 
-class TokenTests(APITestCase):
-    def test_api_jwt(self):
+class UserApiTest(APITestCase):
+    def test_user_api(self):
+        client = APIClient()
+
 
         url = reverse('token_obtain_pair')
         u = User.objects.create_user(
@@ -25,7 +27,6 @@ class TokenTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertTrue('access' in resp.data)
         token = resp.data['access']
-        ref_token = resp.data['refresh']
         # print(token)
 
         verification_url = reverse('token_verify')
@@ -44,15 +45,4 @@ class TokenTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_401_UNAUTHORIZED)
         client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
         resp = client.get(url, data={'format': 'json'})
-        self.assertEqual(resp.status_code, status.HTTP_200_OK)
-
-        # cheking for refresh token
-        url = reverse('token_refresh')
-        client.credentials(HTTP_AUTHORIZATION='Bearer ' + ref_token)
-        resp = client.post(url, {'refresh': ref_token},
-                           format='json')
-        token = resp.data['access']
-        client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
-        resp = self.client.post(
-            verification_url, {'token': token}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
