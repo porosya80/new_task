@@ -24,7 +24,7 @@ class UserApiTest(APITestCase):
             "text": "some text"
 
         }
-        # check create
+        # check create post
         create_url = reverse('posts:posts-list')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + token)
         resp = self.client.post(
