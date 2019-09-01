@@ -7,7 +7,7 @@ from rest_framework import status
 class TokenTests(APITestCase):
     def test_api_jwt(self):
 
-        url = reverse('token_obtain_pair')
+        url = reverse('users:token_obtain_pair')
         u = User.objects.create_user(
             username='user', email='user@foo.com', password='pass')
         u.is_active = False
@@ -28,7 +28,7 @@ class TokenTests(APITestCase):
         ref_token = resp.data['refresh']
         # print(token)
 
-        verification_url = reverse('token_verify')
+        verification_url = reverse('users:token_verify')
         resp = self.client.post(
             verification_url, {'token': token}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
@@ -46,7 +46,7 @@ class TokenTests(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
         # cheking for refresh token
-        url = reverse('token_refresh')
+        url = reverse('users:token_refresh')
         self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + ref_token)
         resp = self.client.post(url, {'refresh': ref_token},
                            format='json')

@@ -23,6 +23,7 @@ factory-boy = "*"
 faker = "*"
 drf-yasg = "*"
 packaging = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.7"
