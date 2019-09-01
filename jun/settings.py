@@ -35,6 +35,9 @@ ALLOWED_HOSTS = ["127.0.0.1"]
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+API_KEY = os.environ.get("API_KEY")
+
+HUNT_KEY = os.environ.get("HUNT_API")
 
 # Application definition
 

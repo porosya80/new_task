@@ -20,5 +20,3 @@ urlpatterns = [
          name='token_verify'),
     path('', include(router.urls)),
 ]
-
-# urlpatterns += router.urls
