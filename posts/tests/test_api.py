@@ -4,9 +4,9 @@ from ..models import User
 from rest_framework import status
 
 
-class UserApiTest(APITestCase):
+class PostApiTest(APITestCase):
 
-    def test_user_api(self):
+    def test_post_api(self):
 
         api_root = reverse('users:users-list')
 
@@ -31,10 +31,16 @@ class UserApiTest(APITestCase):
             create_url, post_data, format='json')
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
 
+        #  check post count
+        list_url = reverse('posts:posts-list')
+        resp = self.client.get(list_url, data={'format': 'json'})
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(resp.data), 1)
+
         # check like
         like_url = reverse('posts:posts-like', kwargs={'pk': 1})
         resp = self.client.post(
-            like_url, post_data, format='json')
+            like_url,format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
         # count likes
@@ -52,7 +58,7 @@ class UserApiTest(APITestCase):
         # check unlike
         unlike_url = reverse('posts:posts-unlike', kwargs={'pk': 1})
         resp = self.client.post(
-            unlike_url, post_data, format='json')
+            unlike_url,format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
         detail_url = reverse('posts:posts-detail', kwargs={'pk': 1})
